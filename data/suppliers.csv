@@ -1,0 +1,101 @@
+supplier_id,name,country,category,base_lead_time_days,historic_defect_rate,spend_usd,risk_score
+SUP001,Apex Systems Inc.,Japan,Gas Turbine Parts,111,0.02573570325871125,1001300.0,48.17
+SUP002,Titan Systems Corp.,India,High-Pressure Piping,60,0.01079427403702055,75300.0,34.57
+SUP003,Vertex Systems Ltd,Canada,Electrical Switchgear,34,0.004721705356345271,89700.0,22.35
+SUP004,Nova Systems Inc.,UAE,Heavy Castings,17,0.0018215913015357389,961200.0,20.32
+SUP005,Precision Systems Corp.,China,Control Valves,36,0.005185880055800888,105900.0,31.55
+SUP006,Advanced Controls Ltd,Brazil,SCADA Hardware,78,0.015678909611865858,293100.0,50.99
+SUP007,Alliance Controls Inc.,USA,SCADA Hardware,13,0.0012955680981376603,2694400.0,17.9
+SUP008,Pacific Controls Corp.,UAE,High-Pressure Piping,126,0.03067886631402478,338000.0,49.83
+SUP009,Dynamic Controls Ltd,India,PLC Systems,91,0.019305621627756748,316200.0,49.52
+SUP010,Matrix Controls Inc.,Germany,Gas Turbine Parts,112,0.025947913187217984,501900.0,48.58
+SUP011,Summit Dynamics Corp.,United Kingdom,Cryogenic Pumps,12,0.0011546334788549288,128700.0,16.17
+SUP012,Vector Dynamics Ltd,Brazil,High-Pressure Piping,90,0.019053861829668096,1515400.0,49.24
+SUP013,Omega Dynamics Inc.,UAE,Power Electronics,34,0.004602487170232995,753400.0,29.71
+SUP014,Alpha Dynamics Corp.,Germany,Heavy Castings,25,0.0029513691370337825,511000.0,17.84
+SUP015,Genesis Dynamics Ltd,Germany,SCADA Hardware,48,0.007665666731056325,252100.0,27.58
+SUP016,Aero Valves Inc.,Saudi Arabia,Electrical Switchgear,70,0.013462138881371717,421800.0,39.17
+SUP017,Thermal Valves Corp.,South Korea,Industrial Semiconductors,42,0.006403387277205787,151900.0,30.3
+SUP018,Quantum Valves Ltd,India,Electrical Switchgear,50,0.008252740754437028,157900.0,36.27
+SUP019,Nexus Valves Inc.,Brazil,Cryogenic Pumps,50,0.008353534792708318,98400.0,41.56
+SUP020,Infiniti Valves Corp.,Singapore,High-Pressure Piping,42,0.006413380517635404,251800.0,18.51
+SUP021,Apex Piping Ltd,South Korea,Electrical Switchgear,13,0.0012391123264938815,112900.0,19.33
+SUP022,Titan Piping Inc.,South Korea,PLC Systems,91,0.019420063535165767,597700.0,42.01
+SUP023,Vertex Piping Corp.,United Kingdom,High-Pressure Piping,70,0.0132869698259309,2117900.0,27.6
+SUP024,Nova Piping Ltd,Singapore,Electrical Switchgear,45,0.00702362924753539,73900.0,23.79
+SUP025,Precision Piping Inc.,Japan,High-Pressure Piping,72,0.013904778343536161,764000.0,28.96
+SUP026,Advanced Switchgear Corp.,Brazil,Electrical Switchgear,48,0.007791948945524965,497700.0,41.73
+SUP027,Alliance Switchgear Ltd,UAE,Industrial Semiconductors,124,0.030067078232707167,1616100.0,57.48
+SUP028,Pacific Switchgear Inc.,India,SCADA Hardware,37,0.005415571406992675,142700.0,33.57
+SUP029,Dynamic Switchgear Corp.,Canada,Cryogenic Pumps,77,0.01526005016182774,78700.0,33.49
+SUP030,Matrix Switchgear Ltd,Brazil,PLC Systems,25,0.002999404511907273,677000.0,37.21
+SUP031,Summit Pumps Inc.,Saudi Arabia,Gas Turbine Parts,118,0.02785390879100699,138800.0,56.52
+SUP032,Vector Pumps Corp.,Canada,Gas Turbine Parts,109,0.02514722396838121,580600.0,46.93
+SUP033,Omega Pumps Ltd,UAE,Heavy Castings,110,0.025446027447200346,644400.0,46.38
+SUP034,Alpha Pumps Inc.,Singapore,Industrial Semiconductors,98,0.0214499029551379,1342800.0,42.78
+SUP035,Genesis Pumps Corp.,Brazil,Gas Turbine Parts,132,0.032736762707862466,455000.0,69.73
+SUP036,Aero Industries Ltd,United Kingdom,High-Pressure Piping,103,0.02314499946620763,183800.0,37.45
+SUP037,Thermal Industries Inc.,USA,Power Electronics,25,0.0030502869109027175,287400.0,22.23
+SUP038,Quantum Industries Corp.,Saudi Arabia,Cryogenic Pumps,40,0.005965892086450914,98100.0,30.07
+SUP039,Nexus Industries Ltd,Canada,Cryogenic Pumps,50,0.008127121141561642,851600.0,25.82
+SUP040,Infiniti Industries Inc.,United Kingdom,Electrical Switchgear,110,0.025356767076652742,187800.0,44.09
+SUP041,Apex Solutions Corp.,South Korea,Cryogenic Pumps,44,0.006754228189921104,65200.0,26.3
+SUP042,Titan Solutions Ltd,United Kingdom,Gas Turbine Parts,27,0.0033246878535513245,865200.0,23.45
+SUP043,Vertex Solutions Inc.,UAE,Power Electronics,24,0.0028377217346730772,2972400.0,27.22
+SUP044,Nova Solutions Corp.,Canada,Power Electronics,115,0.02680043930540895,269100.0,47.91
+SUP045,Precision Solutions Ltd,Japan,Industrial Semiconductors,36,0.005023430673473138,671300.0,27.23
+SUP046,Advanced Engineering Inc.,Germany,Industrial Semiconductors,52,0.008707944554257451,2828800.0,31.71
+SUP047,Alliance Engineering Corp.,Japan,Gas Turbine Parts,15,0.0015057788400904318,227100.0,21.34
+SUP048,Pacific Engineering Ltd,USA,Heavy Castings,38,0.00548227056013837,665700.0,20.27
+SUP049,Dynamic Engineering Inc.,China,Heavy Castings,77,0.015290637484452918,72400.0,41.41
+SUP050,Matrix Engineering Corp.,USA,Cryogenic Pumps,33,0.004560098461067086,107300.0,21.26
+SUP051,Summit Manufacturing Ltd,UAE,Gas Turbine Parts,40,0.00596041376192511,123200.0,32.07
+SUP052,Vector Manufacturing Inc.,United Kingdom,PLC Systems,91,0.01933171429770136,208400.0,39.78
+SUP053,Omega Manufacturing Corp.,Japan,Gas Turbine Parts,110,0.025241482422698233,254600.0,47.79
+SUP054,Alpha Manufacturing Ltd,Japan,Control Valves,95,0.020534450996093714,795200.0,38.72
+SUP055,Genesis Manufacturing Inc.,Singapore,Cryogenic Pumps,23,0.002629327006349302,458900.0,17.36
+SUP056,Aero Tech Corp.,United Kingdom,PLC Systems,25,0.003058923967538007,102300.0,21.49
+SUP057,Thermal Tech Ltd,Singapore,Gas Turbine Parts,54,0.009107048009327972,134600.0,29.22
+SUP058,Quantum Tech Inc.,Brazil,Industrial Semiconductors,133,0.03317213396060835,667900.0,70.84
+SUP059,Nexus Tech Corp.,Singapore,Cryogenic Pumps,35,0.004853867286761172,976900.0,20.38
+SUP060,Infiniti Tech Ltd,UAE,Gas Turbine Parts,111,0.025767776585425308,1218200.0,52.68
+SUP061,Apex Energy Inc.,South Korea,Gas Turbine Parts,16,0.0016926997002815478,96900.0,23.04
+SUP062,Titan Energy Corp.,China,Electrical Switchgear,86,0.018028021993921645,51900.0,47.11
+SUP063,Vertex Energy Ltd,Singapore,PLC Systems,113,0.026230054832043027,159900.0,45.12
+SUP064,Nova Energy Inc.,Germany,Control Valves,77,0.01519998291014378,721500.0,33.52
+SUP065,Precision Energy Corp.,Singapore,Gas Turbine Parts,76,0.015000155637133444,132100.0,35.51
+SUP066,Advanced Flow Ltd,India,Gas Turbine Parts,51,0.008511420289489927,1052500.0,39.55
+SUP067,Alliance Flow Inc.,UAE,Power Electronics,38,0.005577451178852723,461000.0,30.81
+SUP068,Pacific Flow Corp.,Canada,PLC Systems,67,0.012641947554742471,139400.0,32.91
+SUP069,Dynamic Flow Ltd,China,Heavy Castings,59,0.010493663111030862,1928300.0,36.27
+SUP070,Matrix Flow Inc.,Canada,Control Valves,36,0.005037624853982189,701600.0,21.34
+SUP071,Summit Power Corp.,USA,Industrial Semiconductors,25,0.0030819829608093176,386000.0,23.75
+SUP072,Vector Power Ltd,Saudi Arabia,PLC Systems,97,0.021258232867529613,59800.0,48.62
+SUP073,Omega Power Inc.,Brazil,Industrial Semiconductors,131,0.03223827030094267,1067900.0,70.1
+SUP074,Alpha Power Corp.,India,Electrical Switchgear,47,0.007582695866145328,480700.0,35.47
+SUP075,Genesis Power Ltd,UAE,Power Electronics,19,0.001998393954224161,174800.0,26.0
+SUP076,Aero Grid Inc.,Japan,Power Electronics,33,0.004489117001945568,100100.0,24.98
+SUP077,Thermal Grid Corp.,Singapore,SCADA Hardware,107,0.024417453956295854,864200.0,42.58
+SUP078,Quantum Grid Ltd,South Korea,Electrical Switchgear,25,0.0030842746456916413,780500.0,22.2
+SUP079,Nexus Grid Inc.,Japan,Control Valves,27,0.0034348540284860557,167500.0,19.74
+SUP080,Infiniti Grid Corp.,United Kingdom,Power Electronics,96,0.02101204116076038,87500.0,42.09
+SUP081,Apex Foundry Ltd,China,High-Pressure Piping,48,0.007726761151387023,1374500.0,31.7
+SUP082,Titan Foundry Inc.,UAE,Control Valves,108,0.024801268374519077,2103100.0,47.26
+SUP083,Vertex Foundry Corp.,United Kingdom,High-Pressure Piping,52,0.008686367239720424,1313600.0,22.55
+SUP084,Nova Foundry Ltd,USA,Electrical Switchgear,76,0.015097304247468555,1300200.0,33.9
+SUP085,Precision Foundry Inc.,Brazil,PLC Systems,55,0.009504084029385577,232700.0,45.16
+SUP086,Advanced Semiconductors Corp.,Germany,High-Pressure Piping,74,0.014475712843327975,191600.0,29.69
+SUP087,Alliance Semiconductors Ltd,United Kingdom,Heavy Castings,62,0.011304632717865085,56700.0,26.88
+SUP088,Pacific Semiconductors Inc.,Saudi Arabia,SCADA Hardware,105,0.02371230393279751,218500.0,50.29
+SUP089,Dynamic Semiconductors Corp.,Brazil,Industrial Semiconductors,78,0.01558469969952753,1169900.0,53.95
+SUP090,Matrix Semiconductors Ltd,Brazil,Industrial Semiconductors,70,0.013254195402501681,1571100.0,51.59
+SUP091,Summit Instruments Inc.,Saudi Arabia,PLC Systems,79,0.01588730085306114,977400.0,43.25
+SUP092,Vector Instruments Corp.,Germany,SCADA Hardware,35,0.004843508169149292,1297000.0,24.13
+SUP093,Omega Instruments Ltd,UAE,SCADA Hardware,19,0.0020290809430046366,55500.0,24.51
+SUP094,Alpha Instruments Inc.,India,High-Pressure Piping,58,0.010264358831952054,838000.0,34.0
+SUP095,Genesis Instruments Corp.,USA,SCADA Hardware,106,0.02403565395251829,305900.0,43.59
+SUP096,Aero Components Ltd,China,Cryogenic Pumps,94,0.020271811542229623,157300.0,48.69
+SUP097,Thermal Components Inc.,Japan,Industrial Semiconductors,65,0.011972203479303486,278700.0,35.18
+SUP098,Quantum Components Corp.,Brazil,SCADA Hardware,57,0.010025614952172943,1113100.0,44.98
+SUP099,Nexus Components Ltd,Singapore,Industrial Semiconductors,15,0.0015088956761677725,178900.0,19.99
+SUP100,Infiniti Components Inc.,Saudi Arabia,Industrial Semiconductors,59,0.010354127183709975,74600.0,39.72
