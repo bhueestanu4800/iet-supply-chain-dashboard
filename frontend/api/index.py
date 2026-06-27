@@ -12,3 +12,4 @@ from app.main import app
 application = app
 
 # Force cache bust commit - clean compilation re-trigger
+# Triggering production data-pipeline sync pass
