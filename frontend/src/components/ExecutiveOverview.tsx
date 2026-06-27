@@ -95,7 +95,7 @@ export default function ExecutiveOverview({ apiBase }: ExecutiveOverviewProps) {
             <span>Automated AI Advisory Guidance</span>
           </h3>
           <div className="space-y-3">
-            {(insights || []).map((insight) => (
+            {((Array.isArray(insights) ? insights : (insights as any)?.insights) || []).map((insight: any) => (
               <div key={insight.id} className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-2 text-xs font-mono">
                 <span className="text-red-400 font-bold block">// {insight.type}</span>
                 <p className="text-slate-300 leading-normal font-sans">{insight.text}</p>
