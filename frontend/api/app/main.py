@@ -4,7 +4,7 @@ import pandas as pd
 from typing import List, Dict, Any
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.models import SimulationPayload
+from app.models import SimulationPayload
 
 app = FastAPI(
     title="IET Supply Chain Risk Intelligence API",
