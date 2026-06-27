@@ -10,3 +10,5 @@ from app.main import app
 
 # Explicitly expose app at the top level so Vercel's handler sees it instantly
 application = app
+
+# Force cache bust commit - clean compilation re-trigger
