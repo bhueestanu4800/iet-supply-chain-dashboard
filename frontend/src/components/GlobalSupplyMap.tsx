@@ -19,7 +19,7 @@ export default function GlobalSupplyMap({ apiBase }: { apiBase: string }) {
           map[sup.country].totalRisk += sup.risk_score;
         });
 
-        const formatted = Object.values(map).map((r: any) => ({
+        const formatted = Object.values(map || {}).map((r: any) => ({
           ...r,
           avgRisk: Math.round((r.totalRisk / r.suppliers) * 10) / 10
         }));
@@ -34,7 +34,7 @@ export default function GlobalSupplyMap({ apiBase }: { apiBase: string }) {
       <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
         <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-6">Active Regional Logistics Infrastructure Nodes</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {regions.map((reg) => (
+          {(regions || []).map((reg) => (
             <button
               key={reg.name}
               onClick={() => setSelectedRegion(reg)}

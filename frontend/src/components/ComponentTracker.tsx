@@ -53,7 +53,7 @@ export default function ComponentTracker({ apiBase }: ComponentTrackerProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {components.map((item) => (
+          {(components || []).map((item) => (
             <div key={item.component} className="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">

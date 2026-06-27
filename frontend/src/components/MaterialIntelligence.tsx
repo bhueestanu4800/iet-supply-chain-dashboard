@@ -76,12 +76,12 @@ export default function MaterialIntelligence({ apiBase }: { apiBase: string }) {
 
   const getChartData = () => {
     if (!activeData) return [];
-    const pricesArray = activeData.history.map((h: any) => h.price_usd);
+    const pricesArray = (activeData?.history || []).map((h: any) => h.price_usd);
     const minP = Math.min(...pricesArray);
     const maxP = Math.max(...pricesArray);
     const pRange = maxP - minP || 1;
 
-    return activeData.history.map((h: any) => {
+    return (activeData?.history || []).map((h: any) => {
       const normalizedPrice = (h.price_usd - minP) / pRange;
       const riskIndex = Math.min(99, Math.max(10, Math.round(35 + (normalizedPrice * 45))));
       return {
@@ -112,7 +112,7 @@ export default function MaterialIntelligence({ apiBase }: { apiBase: string }) {
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-2 px-1 font-mono">
               Select Market Feed
             </span>
-            {trends && Object.keys(trends).map((comm) => {
+            {trends && Object.keys(trends || {}).map((comm) => {
               const data = trends[comm];
               const isSelected = activeComm === comm;
               const isUp = data.delta_30d_pct >= 0;

@@ -78,7 +78,7 @@ export default function ExecutiveOverview({ apiBase }: ExecutiveOverviewProps) {
             <span>Real-Time Operation Logistics Feed</span>
           </h3>
           <div className="space-y-3">
-            {summary?.recent_alerts.map((alert) => (
+            {(summary?.recent_alerts || []).map((alert) => (
               <div key={alert.id} className="p-4 bg-slate-950/40 border border-slate-800 rounded-xl flex gap-3 text-xs font-mono">
                 <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
                 <div>
@@ -95,7 +95,7 @@ export default function ExecutiveOverview({ apiBase }: ExecutiveOverviewProps) {
             <span>Automated AI Advisory Guidance</span>
           </h3>
           <div className="space-y-3">
-            {insights.map((insight) => (
+            {(insights || []).map((insight) => (
               <div key={insight.id} className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-2 text-xs font-mono">
                 <span className="text-red-400 font-bold block">// {insight.type}</span>
                 <p className="text-slate-300 leading-normal font-sans">{insight.text}</p>

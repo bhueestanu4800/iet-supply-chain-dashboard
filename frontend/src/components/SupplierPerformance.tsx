@@ -42,7 +42,7 @@ export default function SupplierPerformance({ apiBase }: { apiBase: string }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/60">
-            {filtered.slice(0, 15).map((sup) => (
+            {(filtered || []).slice(0, 15).map((sup) => (
               <tr key={sup.supplier_id} className="hover:bg-slate-800/40 text-slate-300">
                 <td className="p-3 font-semibold text-white max-w-[180px] truncate">{sup.supplier_name}</td>
                 <td className="p-3">{sup.country}</td>

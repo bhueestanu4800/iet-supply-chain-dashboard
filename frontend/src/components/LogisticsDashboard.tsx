@@ -40,7 +40,7 @@ export default function LogisticsDashboard({ apiBase }: { apiBase: string }) {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie data={modeData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} dataKey="value">
-                {modeData.map((entry, index) => (
+                {(modeData || []).map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>

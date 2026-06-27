@@ -6,19 +6,25 @@ export default function SustainabilityDashboard({ apiBase }: { apiBase: string }
 
   useEffect(() => {
     fetch(`${apiBase}/api/v1/suppliers`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((suppliers: any[]) => {
         const countryMap: { [key: string]: number } = {};
-        suppliers.forEach(s => {
-          countryMap[s.country] = (countryMap[s.country] || 0) + s.co2_emissions_mt;
+
+        // Add safety fallback array here so it never crashes while loading
+        (suppliers || []).forEach((s) => {
+          if (s && s.country) {
+            countryMap[s.country] = (countryMap[s.country] || 0) + (s.co2_emissions_mt || 0);
+          }
         });
-        const chartArray = Object.keys(countryMap).map(country => ({
+
+        const chartArray = Object.keys(countryMap).map((country) => ({
           country,
           co2: Math.round(countryMap[country])
         }));
+
         setData(chartArray);
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, [apiBase]);
 
   return (
