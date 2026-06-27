@@ -21,8 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Paths relative to this file
-# Pin exactly where this file is running
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "..", "data"))
 
