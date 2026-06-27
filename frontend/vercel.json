@@ -1,7 +1,8 @@
 {
+    "version": 2,
     "rewrites": [
         {
-            "source": "/api/v1/:match*",
+            "source": "/api/(.*)",
             "destination": "/api/index.py"
         },
         {
