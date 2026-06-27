@@ -158,12 +158,16 @@ def get_suppliers():
         df_suppliers = load_suppliers()
         if df_suppliers.empty:
             return []
+            
+        # Standardize columns to handle spaces vs underscores dynamically
+        df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
+        
         df_clean = df_suppliers.where(pd.notnull(df_suppliers), None)
         return df_clean.to_dict(orient="records")
     except Exception as e:
         print(f"Error in get_suppliers: {str(e)}")
         return [
-            {"supplier_id": 1, "name": "Global Semi Nodes", "category": "Industrial Semiconductors", "country": "Taiwan", "spend_usd": 45000000, "base_lead_time_days": 52, "risk score": 72, "historic_defect_rate": 0.02}
+            {"supplier_id": 1, "name": "Global Semi Nodes", "category": "Industrial Semiconductors", "country": "Taiwan", "spend_usd": 45000000, "base_lead_time_days": 52, "risk_score": 72, "historic_defect_rate": 0.02}
         ]
 
 @app.get("/api/v1/components")
@@ -180,15 +184,18 @@ def get_components():
         if df_suppliers.empty:
             return []
             
+        # Standardize columns dynamically
+        df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
+        
         grouped = df_suppliers.groupby("category")
         for category, group in grouped:
             total_category_spend = float(group["spend_usd"].sum())
-            supplier_count = int(group["supplier_id"].nunique())
+            supplier_count = int(group["supplier_id"].nunique()) if "supplier_id" in group.columns else len(group)
             
             if total_category_spend > 0:
-                weighted_risk = float((group["risk score"] * group["spend_usd"]).sum() / total_category_spend)
+                weighted_risk = float((group["risk_score"] * group["spend_usd"]).sum() / total_category_spend)
             else:
-                weighted_risk = float(group["risk score"].mean())
+                weighted_risk = float(group["risk_score"].mean()) if "risk_score" in group.columns else 0.0
                 
             inventory_value = total_category_spend * 0.15
             growth_rate = category_growth_rates.get(category, 3.0)
@@ -221,20 +228,22 @@ def get_commodity_trends():
         if df_comm.empty:
             return []
             
+        df_comm.columns = [c.lower().replace(" ", "_") for c in df_comm.columns]
+        
         grouped = df_comm.groupby("commodity")
         for comm, group in grouped:
             sorted_group = group.sort_values("month")
             history = sorted_group.to_dict(orient="records")
-            latest_val = sorted_group.iloc[-1]["price_usd"]
+            latest_val = sorted_group.iloc[-1]["price_usd"] if "price_usd" in sorted_group.columns else 0.0
             
             delta_30d_pct = 0.0
-            if len(sorted_group) >= 2:
+            if len(sorted_group) >= 2 and "price_usd" in sorted_group.columns:
                 prev_30d = sorted_group.iloc[-2]["price_usd"]
                 if prev_30d > 0:
                     delta_30d_pct = float((latest_val - prev_30d) / prev_30d * 100.0)
                     
             delta_90d_pct = 0.0
-            if len(sorted_group) >= 4:
+            if len(sorted_group) >= 4 and "price_usd" in sorted_group.columns:
                 prev_90d = sorted_group.iloc[-4]["price_usd"]
                 if prev_90d > 0:
                     delta_90d_pct = float((latest_val - prev_90d) / prev_90d * 100.0)
@@ -257,8 +266,13 @@ def evaluate_stress_simulation(payload: SimulationPayload):
         df_suppliers = load_suppliers()
         df_po = load_orders()
         
-        delivered_pos = df_po[df_po["status"] == "Delivered"] if not df_po.empty else []
-        base_otif = float(delivered_pos["otif_status"].mean() * 100.0) if len(delivered_pos) > 0 else 85.0
+        if not df_suppliers.empty:
+            df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
+        if not df_po.empty:
+            df_po.columns = [c.lower().replace(" ", "_") for c in df_po.columns]
+            
+        delivered_pos = df_po[df_po["status"] == "Delivered"] if (not df_po.empty and "status" in df_po.columns) else []
+        base_otif = float(delivered_pos["otif_status"].mean() * 100.0) if (len(delivered_pos) > 0 and "otif_status" in delivered_pos.columns) else 85.0
         
         otif_penalty = ((payload.supplier_delay * 0.35) + (payload.port_congestion * 0.45) + (payload.material_shortage * 12.0) + (payload.weather_impact * 8.0) + (payload.geopolitical_risk * 10.0))
         forecasted_otif = max(30.0, min(100.0, base_otif - otif_penalty))
@@ -270,8 +284,8 @@ def evaluate_stress_simulation(payload: SimulationPayload):
         delay_choke = (payload.supplier_delay + payload.port_congestion) * 0.012
         inventory_impact_ratio = max(0.05, min(1.5, 1.0 - (demand_drain + shortage_choke + delay_choke)))
         
-        open_pos = df_po[df_po["status"] == "Open"] if not df_po.empty else []
-        total_open_value = float(open_pos["value_usd"].sum()) if len(open_pos) > 0 else 0.0
+        open_pos = df_po[df_po["status"] == "Open"] if (not df_po.empty and "status" in df_po.columns) else []
+        total_open_value = float(open_pos["value_usd"].sum()) if (len(open_pos) > 0 and "value_usd" in open_pos.columns) else 0.0
         
         risk_factor = ((payload.supplier_delay / 30.0 * 0.20) + (payload.port_congestion / 15.0 * 0.15) + (payload.demand_increase * 0.10) + (payload.material_shortage * 0.25) + (payload.weather_impact * 0.15) + (payload.geopolitical_risk * 0.15))
         risk_factor = max(0.0, min(1.0, risk_factor))
@@ -298,8 +312,10 @@ def get_ai_insights():
         if df_suppliers.empty:
             return {"insights_count": len(insights), "insights": insights}
             
-        total_spend = df_suppliers["spend_usd"].sum()
-        if total_spend > 0:
+        df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
+        total_spend = df_suppliers["spend_usd"].sum() if "spend_usd" in df_suppliers.columns else 0
+        
+        if total_spend > 0 and "country" in df_suppliers.columns and "spend_usd" in df_suppliers.columns:
             spend_by_country = df_suppliers.groupby("country")["spend_usd"].sum()
             shares = (spend_by_country / total_spend) * 100.0
             for country, share in shares.items():
