@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  LayoutDashboard, Globe, Users, Cpu, BarChart3,
-  Truck, ShieldAlert, ShieldCheck, Activity
+  LayoutDashboard,
+  Globe,
+  Users,
+  Cpu,
+  BarChart3,
+  Truck,
+  ShieldAlert,
+  ShieldCheck,
+  Activity
 } from 'lucide-react';
 
 // Core Dashboard Component Imports
@@ -17,8 +24,6 @@ import ExecutiveKPIDashboard from './components/ExecutiveKPIDashboard';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('overview');
-
-  // Unified endpoint base - empty string leverages Vercel's relative domain paths
   const apiBase = "";
 
   const navigationItems = [
@@ -35,7 +40,6 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen bg-slate-950 text-slate-100 overflow-hidden font-sans">
-
       {/* Industrial Side Command Panel */}
       <aside className="w-72 bg-slate-900 border-r border-slate-800 flex flex-col justify-between z-20">
         <div>
@@ -58,8 +62,8 @@ export default function App() {
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-xs font-medium tracking-wide uppercase transition-all duration-150 ${isActive
-                    ? 'bg-emerald-500 text-slate-950 shadow-md font-semibold'
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+                      ? 'bg-emerald-500 text-slate-950 shadow-md font-semibold'
+                      : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
                     }`}
                 >
                   <Icon className={`h-4 w-4 ${isActive ? 'text-slate-950' : 'text-slate-400'}`} />
@@ -70,11 +74,9 @@ export default function App() {
           </nav>
         </div>
 
-        <div className="p-4 border-t border-slate-800 bg-slate-950/40">
-          <div className="flex items-center space-x-2 text-xs font-mono text-slate-400">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>SYSTEM STATUS: ONLINE (V2.0)</span>
-          </div>
+        <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex items-center space-x-2 text-xs font-mono text-slate-400">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>SYSTEM STATUS: ONLINE (V2.0)</span>
         </div>
       </aside>
 
@@ -82,9 +84,9 @@ export default function App() {
       <main className="flex-1 flex flex-col overflow-hidden bg-slate-950">
         <header className="h-16 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md flex items-center justify-between px-8 z-10">
           <h2 className="text-sm font-bold tracking-wider text-white uppercase font-mono">
-            // System Control Node: {navigationItems.find(n => n.id === activeTab)?.name}
+            {navigationItems.find((n) => n.id === activeTab)?.name}
           </h2>
-          <div className="flex items-center space-x-4 Skinner text-xs font-mono bg-slate-800/40 px-4 py-1.5 rounded border border-slate-700/60">
+          <div className="flex items-center space-x-4 text-xs font-mono bg-slate-800/40 px-4 py-1.5 rounded border border-slate-700/60">
             <span className="text-slate-400">TENANT CLOUD NODE:</span>
             <span className="text-emerald-400 font-bold">VERCEL-SERVERLESS</span>
           </div>
