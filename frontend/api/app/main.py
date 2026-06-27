@@ -22,9 +22,15 @@ app.add_middleware(
 )
 
 # Paths relative to this file
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Pin the absolute path directly relative to this running app file inside Vercel's environment
+CURRENT_APP_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Navigate back out to find the 'data' directory securely
+# frontend/api/app/main.py -> move up 3 levels to reach the root data folder
+BASE_DIR = os.path.abspath(os.path.join(CURRENT_APP_DIR, "..", "..", ".."))
+
 SUPPLIERS_PATH = os.path.join(BASE_DIR, "data", "suppliers.csv")
-COMMODITIES_PATH = os.path.join(BASE_DIR, "data", "commodity_prices.csv")
+COMMODITIES_PATH = os.path.join(BASE_DIR, "data", "commodity prices.csv")
 ORDERS_PATH = os.path.join(BASE_DIR, "data", "purchase_orders.csv")
 
 def load_suppliers() -> pd.DataFrame:
