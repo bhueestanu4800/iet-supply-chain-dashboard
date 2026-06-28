@@ -24,9 +24,14 @@ app.add_middleware(
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "..", "data"))
 
-SUPPLIERS_PATH = os.path.join(DATA_DIR, "suppliers.csv")
-COMMODITIES_PATH = os.path.join(DATA_DIR, "commodity prices.csv")
-ORDERS_PATH = os.path.join(DATA_DIR, "purchase_orders.csv")
+import os
+
+# Resolves the exact absolute root directory of your API workspace
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SUPPLIERS_PATH = os.path.join(BASE_DIR, "data", "suppliers.csv")
+ORDERS_PATH = os.path.join(BASE_DIR, "data", "orders.csv")
+COMMODITIES_PATH = os.path.join(BASE_DIR, "data", "commodities.csv")
 
 def safe_load_csv(path: str) -> pd.DataFrame:
     """Helper to load data with an immediate fallback to keep graphs alive if Vercel misplaces a file path."""
