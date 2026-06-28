@@ -54,14 +54,52 @@ def safe_load_csv(path: str) -> pd.DataFrame:
             {"status": "Open", "value_usd": 280000}
         ])
 
-def load_suppliers() -> pd.DataFrame:
-    return safe_load_csv(SUPPLIERS_PATH)
+def load_suppliers():
+    try:
+        # Adjust path to match your layout folder tree exactly
+        df = pd.read_csv("data/suppliers.csv")
+        if df.empty:
+            return df
+            
+        # Standardize column headers immediately
+        df.columns = [c.lower().replace(" ", "_").strip() for c in df.columns]
+        
+        # SANITIZE DATA TYPES: Strip commas, dollar signs, and force numerical values
+        numeric_cols = ["spend_usd", "risk_score", "base_lead_time_days", "historic_defect_rate", "inventory_on_hand", "co2_emissions_mt"]
+        for col in numeric_cols:
+            if col in df.columns:
+                df[col] = df[col].astype(str).str.replace('$', '', regex=False)
+                df[col] = df[col].str.replace(',', '', regex=False).str.strip()
+                df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
+                
+        return df
+    except Exception as e:
+        print(f"Error loading suppliers CSV data frame: {str(e)}")
+        return pd.DataFrame()
+
+def load_orders():
+    try:
+        df = pd.read_csv("data/orders.csv")
+        if df.empty:
+            return df
+            
+        df.columns = [c.lower().replace(" ", "_").strip() for c in df.columns]
+        
+        # Sanitize money and index values
+        numeric_cols = ["value_usd", "otif_status", "lead_time_days"]
+        for col in numeric_cols:
+            if col in df.columns:
+                df[col] = df[col].astype(str).str.replace('$', '', regex=False)
+                df[col] = df[col].str.replace(',', '', regex=False).str.strip()
+                df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
+                
+        return df
+    except Exception as e:
+        print(f"Error loading orders CSV: {str(e)}")
+        return pd.DataFrame()
 
 def load_commodities() -> pd.DataFrame:
     return safe_load_csv(COMMODITIES_PATH)
-
-def load_orders() -> pd.DataFrame:
-    return safe_load_csv(ORDERS_PATH)
 
 @app.get("/")
 def read_root():
@@ -159,16 +197,15 @@ def get_suppliers():
         if df_suppliers.empty:
             return []
             
-        # Standardize columns to handle spaces vs underscores dynamically
-        df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
+        # Clean out any native NaN formatting that causes JavaScript JSON parser panics
+        df_clean = df_suppliers.replace({np.nan: None, pd.NA: None})
+        data_records = df_clean.to_dict(orient="records")
         
-        df_clean = df_suppliers.where(pd.notnull(df_suppliers), None)
-        return df_clean.to_dict(orient="records")
+        # Return standard dictionary array list explicitly
+        return data_records
     except Exception as e:
-        print(f"Error in get_suppliers: {str(e)}")
-        return [
-            {"supplier_id": 1, "name": "Global Semi Nodes", "category": "Industrial Semiconductors", "country": "Taiwan", "spend_usd": 45000000, "base_lead_time_days": 52, "risk_score": 72, "historic_defect_rate": 0.02}
-        ]
+        print(f"Error in get_suppliers data array pipeline: {str(e)}")
+        return []
 
 @app.get("/api/v1/components")
 def get_components():
