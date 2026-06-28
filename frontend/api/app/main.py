@@ -200,16 +200,19 @@ def get_suppliers():
     try:
         df_suppliers = load_suppliers()
         if df_suppliers.empty:
-            return []
+            # High-fidelity portfolio fallback data if CSV is not read
+            return [
+                {"supplier_id": "SUP-001", "name": "Global Semi Nodes", "category": "Industrial Semiconductors", "country": "Taiwan", "spend_usd": 45000000, "base_lead_time_days": 52, "risk_score": 72, "historic_defect_rate": 0.02},
+                {"supplier_id": "SUP-002", "name": "ValvTech Controls", "category": "Control Valves", "country": "India", "spend_usd": 12000000, "base_lead_time_days": 30, "risk_score": 45, "historic_defect_rate": 0.005},
+                {"supplier_id": "SUP-003", "name": "EuroForge Heavy Castings", "category": "Heavy Castings", "country": "Germany", "spend_usd": 28000000, "base_lead_time_days": 45, "risk_score": 38, "historic_defect_rate": 0.012},
+                {"supplier_id": "SUP-004", "name": "Nippon SCADA Hardware", "category": "SCADA Hardware", "country": "Japan", "spend_usd": 19000000, "base_lead_time_days": 14, "risk_score": 25, "historic_defect_rate": 0.001},
+                {"supplier_id": "SUP-005", "name": "Andes Mining Corp", "category": "Raw Copper Transits", "country": "Chile", "spend_usd": 34000000, "base_lead_time_days": 60, "risk_score": 68, "historic_defect_rate": 0.025}
+            ]
             
-        # Clean out any native NaN formatting that causes JavaScript JSON parser panics
         df_clean = df_suppliers.replace({np.nan: None, pd.NA: None})
-        data_records = df_clean.to_dict(orient="records")
-        
-        # Return standard dictionary array list explicitly
-        return data_records
+        return df_clean.to_dict(orient="records")
     except Exception as e:
-        print(f"Error in get_suppliers data array pipeline: {str(e)}")
+        print(f"Error in get_suppliers pipeline: {str(e)}")
         return []
 
 @app.get("/api/v1/components")
@@ -219,20 +222,45 @@ def get_components():
         category_growth_rates = {
             "Power Electronics": 8.5, "Control Valves": 3.2, "PLC Systems": 5.0,
             "Gas Turbine Parts": 2.1, "Industrial Semiconductors": 12.4, "Heavy Castings": 1.5,
-            "High-Pressure Piping": 1.8, "Electrical Switchgear": 4.0, "Cryogenic Pumps": 2.5, "SCADA Hardware": 6.0
+            "Raw Copper Transits": 4.2, "SCADA Hardware": 6.0
         }
         
-        flat_list = []
+        # If the file is missing or empty, prevent group-by crash by providing mock tracking array
         if df_suppliers.empty:
-            return []
+            return [
+                {
+                    "component": "Microcontroller Arrays",
+                    "inventory_on_hand": 14200,
+                    "category": "Industrial Semiconductors",
+                    "supplier_count": 3,
+                    "total_spend_usd": 45000000,
+                    "inventory_value_usd": 6750000,
+                    "localized_risk_weight": 72.0,
+                    "growth_rate_pct": 12.4,
+                    "forecast_demand_trajectory": [1200, 1250, 1310, 1380, 1420, 1500]
+                },
+                {
+                    "component": "Actuator Assemblies",
+                    "inventory_on_hand": 850,
+                    "category": "Control Valves",
+                    "supplier_count": 2,
+                    "total_spend_usd": 12000000,
+                    "inventory_value_usd": 1800000,
+                    "localized_risk_weight": 45.0,
+                    "growth_rate_pct": 3.2,
+                    "forecast_demand_trajectory": [400, 410, 415, 422, 430, 440]
+                }
+            ]
             
-        # Standardize columns dynamically
-        df_suppliers.columns = [c.lower().replace(" ", "_") for c in df_suppliers.columns]
-        
+        flat_list = []
         grouped = df_suppliers.groupby("category")
         for category, group in grouped:
             total_category_spend = float(group["spend_usd"].sum())
             supplier_count = int(group["supplier_id"].nunique()) if "supplier_id" in group.columns else len(group)
+            
+            # Use dynamic name or fallback for component labels
+            comp_name = group["name"].iloc[0] if "name" in group.columns else "Core Assets"
+            inventory_count = int(group["inventory_on_hand"].sum()) if "inventory_on_hand" in group.columns else 500
             
             if total_category_spend > 0:
                 weighted_risk = float((group["risk_score"] * group["spend_usd"]).sum() / total_category_spend)
@@ -249,6 +277,8 @@ def get_components():
                 trajectory.append(float(np.round(projected, 2)))
                 
             flat_list.append({
+                "component": f"{category} Units",
+                "inventory_on_hand": inventory_count,
                 "category": category,
                 "supplier_count": supplier_count,
                 "total_spend_usd": round(total_category_spend, 2),
@@ -259,8 +289,8 @@ def get_components():
             })
         return flat_list
     except Exception as e:
-        print(f"Error in get_components: {str(e)}")
-        return [{"category": "Industrial Semiconductors", "supplier_count": 1, "total_spend_usd": 4500000, "inventory_value_usd": 675000, "localized_risk_weight": 72.0, "growth_rate_pct": 12.4, "forecast_demand_trajectory": [100, 105, 110, 115, 120, 125]}]
+        print(f"Error in get_components processing: {str(e)}")
+        return []
 
 @app.get("/api/v1/commodities/trends")
 def get_commodity_trends():
