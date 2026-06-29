@@ -204,8 +204,6 @@ def get_components():
                 cat = item["category"]
                 growth_rate = category_growth_rates.get(cat, 3.0)
                 base_monthly = item["spend"] / 24.0
-                
-                # Map out the exact 6-month trajectory arrays matching the component schemas
                 trajectory = [float(round(base_monthly * (1.0 + (growth_rate / 100.0) * (m / 12.0)), 2)) for m in range(1, 7)]
                 
                 flat_list.append({
@@ -214,8 +212,19 @@ def get_components():
                     "category": cat,
                     "supplier_count": 2,
                     "total_spend_usd": float(item["spend"]),
+                    
+                    # Chart Mappings: Providing multiple variations to ensure compatibility
                     "inventory_value_usd": float(item["spend"] * 0.15),
+                    "forecasted_allocation": float(item["spend"] * 0.12),
+                    "forecastedAllocation": float(item["spend"] * 0.12),
+                    "current_stock": item["inventory"],
+                    "currentStock": item["inventory"],
+                    
+                    # Risk Weights
                     "localized_risk_weight": float(item["risk"]),
+                    "risk_score": float(item["risk"]),
+                    "value": float(item["risk"]), # Some UI tools require 'value'
+                    
                     "growth_rate_pct": growth_rate,
                     "forecast_demand_trajectory": trajectory
                 })
@@ -248,7 +257,13 @@ def get_components():
                 "inventory_value_usd": round(total_category_spend * 0.15, 2),
                 "localized_risk_weight": round(weighted_risk, 2),
                 "growth_rate_pct": growth_rate,
-                "forecast_demand_trajectory": trajectory
+                "forecast_demand_trajectory": trajectory,
+                "base_lead_time_days": 24,
+                    "lead_time_days": 24,
+                    "avg_lead_time": 24,
+                    "current_allocation": 1100,
+                    "forecasted_demand": 1400,
+                    "risk_index": float(item["risk"]),
             })
         return flat_list
     except Exception as e:
